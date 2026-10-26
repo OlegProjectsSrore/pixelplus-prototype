@@ -84,6 +84,16 @@
 .summary-provenance{grid-column:1 / -1;display:flex;flex-direction:column;gap:4px;font-size:10px;color:var(--muted);line-height:1.7;padding:0 3px}
 .summary-provenance strong{color:#58664f;font-weight:400}
 .overview-metric .metric-change{color:#7c5a37;margin-top:5px;font-size:11px}
+.overview-value.metric-value-stack{flex-direction:column;align-items:flex-end;gap:3px;text-align:right;max-width:48%;flex-shrink:1}
+.metric-value-stack strong{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.metric-value-stack .trend-arrow{font-size:21px;font-weight:400}
+.overview-metric .metric-value-stack .metric-change{color:inherit;line-height:1.5;margin:0;font-size:11px}
+.metric-value-stack.metric-negative{color:#b83232}.metric-value-stack.metric-positive{color:#2e751b}.metric-value-stack.metric-neutral{color:#69737b}
+.metric-verdict{font-size:9px;line-height:1.5}
+.implementation-notice{grid-column:1 / -1;border:1px solid #c8ddbc;border-left:3px solid var(--green);border-radius:7px;background:#f5faf1;padding:15px 17px;margin-bottom:16px;font-size:12px;min-width:0}
+.project-overview>.implementation-notice{margin:0}.implementation-notice>strong{display:block;margin-top:8px;font-size:12px}.implementation-notice p{font-size:11px;color:#596950;line-height:1.7;margin:7px 0}
+.implementation-notice .icon,.approval-top .tag .icon{width:14px;height:14px}.implemented-status small{display:block;font-size:10px;margin:7px 0 0;line-height:1.7}.approval-card.is-implemented{border-color:#b5d4a4}.approval-actions>.status-banner{flex-basis:100%}.decision-done{margin-left:auto;flex:none}.overview-metric .metric-resolution{margin-top:10px;line-height:1.8;color:#527744}
+@media(max-width:700px){.overview-value.metric-value-stack{max-width:49%}.metric-value-stack strong{gap:4px}.metric-value-stack .trend-arrow{font-size:18px}.overview-metric .metric-value-stack .metric-change{font-size:10px}.metric-verdict{font-size:8px}.implementation-notice{padding:13px}}
 .metric-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px}
 .metric-tools .text-button{font-size:10px;text-decoration:underline;text-underline-offset:3px}
 .metric-tools>span{font-size:9px;color:var(--muted)}

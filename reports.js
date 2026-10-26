@@ -47,6 +47,19 @@
     ['pages','Важные страницы с проблемой','12','0 страниц с noindex','+12 страниц','health','Что исправить в первую очередь?'],
     ['reputation','Рейтинг по отзывам','4,57','4,60 из 5 · 100 отзывов','−0,03 · теперь 104 отзыва','reputation','На какие отзывы обратить внимание?']
   ];
+  const summaryTrends = {
+    traffic:{current:7200,previous:10000}, results:{current:144,previous:200},
+    visibility:{current:30,previous:60}, demand:{current:900,previous:1000},
+    ai:{current:30,previous:40}, pages:{current:12,previous:0,lowerIsBetter:true},
+    reputation:{current:4.57,previous:4.60}
+  };
+  function metricTrend(topic) {
+    const {current,previous,lowerIsBetter=false}=summaryTrends[topic];
+    const delta=current-previous;
+    if(delta===0)return {className:'metric-neutral',arrow:'→',label:'Без изменений'};
+    const good=lowerIsBetter?delta<0:delta>0;
+    return {className:good?'metric-positive':'metric-negative',arrow:delta>0?'↑':'↓',label:(delta>0?'Рост':'Снижение')+' — '+(good?'улучшение':'ухудшение')};
+  }
   const topics = {
     results:{label:'Заявки и продажи',question:'Почему стало меньше заявок из органики за 19–25 октября?',title:'Заявок стало меньше вместе с трафиком',lead:'Заявки снизились с 200 до 144 (−28%), а конверсия визитов в заявку осталась 2%. В группе 12 страниц заявки упали с 80 до 24; остальные страницы сохранили 120 заявок.',hypothesis:'Изменение общего числа заявок согласуется с потерей посещаемости. Стабильная общая конверсия не исключает проблем отдельных страниц.',next:'Проверьте посадочные страницы с потерями и качество заявок в CRM. Подтверждённых заявок стало 86 вместо 120. Одна отправка формы ещё не означает продажу.',links:['results','health'],independent:true},
     search:{label:'Показы и CTR',question:'Почему снизились клики и CTR за 19–25 октября?',title:'Основная потеря кликов — в небрендовом поиске',lead:'Небрендовые клики снизились с 6 000 до 3 600; показы — со 170 000 до 153 000. CTR изменился с 3,53% до 2,35%. Брендовые клики: 3 000 → 2 700 при неизменном CTR 10%.',hypothesis:'Падение CTR может быть связано с позициями, составом запросов и оформлением выдачи. По одной метрике нельзя установить причину.',next:'Сравните выдачу и позиции по потерявшим клики запросам. Проверьте заголовки и соответствие страниц намерению посетителя.',links:['search','serp','keywords'],independent:true},
@@ -106,5 +119,5 @@
     const renderers={results:()=>results(queries),search,demand,ai,reputation,links,health:()=>health(queries,technicalReady)};
     return viewHead(id)+`<div class="panel report-page">${renderers[id]()}<div class="report-assistant-link"><button class="button secondary" data-ask="${id}">Разобрать эти данные с ИИ-помощником</button><p class="small-text muted">Откроется диалог в сводке с контекстом этого отчёта.</p></div></div>`;
   }
-  window.projectReports={nav,topics,summaryCards,source,sources,view,directions,aiRows};
+  window.projectReports={nav,topics,summaryCards,summaryTrends,metricTrend,source,sources,view,directions,aiRows};
 })();
