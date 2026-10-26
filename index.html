@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Предварительный интерактивный макет ИИ-помощника Pixel Tools. Демонстрационные данные.">
+  <title>Сводка и ИИ-помощник — Пиксель Тулс · Макет</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="assets/logo.svg" alt="Пиксель Тулс" width="180" height="36"></div>
+    <span class="topbar-project">Рабочая область проекта</span>
+    <span class="preview-label">Предварительный макет</span>
+    <span class="avatar" aria-label="Профиль демонстрационного пользователя">О</span>
+  </header>
+  <aside class="sidebar">
+    <div class="project-box"><span class="project-icon" aria-hidden="true">О</span><div><strong>Окна Пример</strong><span>okna.example</span></div><span class="project-kind">SEO</span></div>
+    <button id="navigation-toggle" class="navigation-toggle" aria-expanded="false" aria-controls="navigation"><span>Разделы проекта</span><span id="mobile-current">Сводка и ИИ-помощник</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+    <nav id="navigation" aria-label="Разделы проекта"></nav>
+    <div class="sidebar-bottom">
+      <div class="demo-label"><span></span>Демонстрационные данные</div>
+      <p>Один проект. Один сценарий.<br>Все действия — внутри макета.</p>
+      <details class="demo-settings"><summary>Управление макетом</summary><label for="scenario">Сценарий демо</label><select id="scenario"><option value="full">Данные доступны</option><option value="missing">Недостаточно данных</option></select><button id="ready-example" class="button secondary">Посмотреть готовый пример</button><button id="reset" class="button quiet">Начать заново</button></details>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="page-heading"><div><div class="breadcrumbs">Окна Пример <span>/</span> <span id="breadcrumb">Сводка и ИИ-помощник</span></div><h1 id="page-title">Сводка и ИИ-помощник</h1><p id="page-description">Выберите показатель — помощник объяснит изменение и предложит следующие действия.</p></div><div class="period"><span id="period-icon"></span><div><strong>19–25 октября 2026</strong><span>сравнение с 12–18 октября</span></div></div></div>
+    <div id="content"></div>
+  </main>
+  <div id="notification" class="notification" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
