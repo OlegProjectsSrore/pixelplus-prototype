@@ -74,7 +74,8 @@
     const group=(id,title,items)=>`<div class="nav-group" role="group" aria-labelledby="${id}"><div class="nav-group-title" id="${id}">${title}</div><div class="nav-group-items">${items}</div></div>`;
     $('#navigation').innerHTML=group('nav-work','Основная работа',item('assistant','agent','Сводка и помощник'))+group('nav-analytics','Аналитика',analytics.map(([id,ic,name])=>item(id,ic,name,true)).join(''))+group('nav-actions','Действия',item('approval','approve','На согласовании'));
   }
-  function render(){const oldThread=$('.thread');if(oldThread)state.threadScroll=oldThread.scrollTop;nav();const meta=state.screen==='data'?analytics.find(row=>row[0]===state.tab).slice(2):titles[state.screen];$('#page-title').textContent=meta[0];$('#page-description').textContent=meta[1];$('#breadcrumb').textContent=(state.screen==='data'?'Аналитика / ':'')+meta[0];$('#mobile-current').textContent=meta[0];$('#content').innerHTML=state.screen==='assistant'?assistant():state.screen==='data'?dataView():approval();$('#scenario').value=state.mode;const thread=$('.thread');if(thread)thread.scrollTop=state.threadScroll;}
+  function fitAssistantPanel(){const panel=$('#assistant-panel');if(!panel||!matchMedia('(min-width:1101px)').matches)return;const top=Math.max(parseFloat(getComputedStyle(panel).top)||0,panel.parentElement.getBoundingClientRect().top);panel.style.setProperty('--assistant-top',top+'px');}
+  function render(){const oldThread=$('.thread');if(oldThread)state.threadScroll=oldThread.scrollTop;nav();const meta=state.screen==='data'?analytics.find(row=>row[0]===state.tab).slice(2):titles[state.screen];$('#page-title').textContent=meta[0];$('#page-description').textContent=meta[1];$('#breadcrumb').textContent=(state.screen==='data'?'Аналитика / ':'')+meta[0];$('#mobile-current').textContent=meta[0];$('#content').innerHTML=state.screen==='assistant'?assistant():state.screen==='data'?dataView():approval();$('#scenario').value=state.mode;const thread=$('.thread');if(thread)thread.scrollTop=state.threadScroll;fitAssistantPanel();}
   function move(screen,tab){const fromNav=document.activeElement?.closest('#navigation');state.screen=screen;if(tab)state.tab=tab;state.notice='';$('#navigation').classList.remove('mobile-open');$('#navigation-toggle').setAttribute('aria-expanded','false');render();if(fromNav){const target=matchMedia('(max-width:700px)').matches?$('#navigation-toggle'):$('#navigation [aria-current="page"]');target?.focus({preventScroll:true});}window.scrollTo({top:0,behavior:'instant'});}
   function start(q,topic=state.topic,keepDraft=false){clearInterval(timer);archiveTurn();state.question=q||question;state.topic=topic;if(!keepDraft)state.input='';state.notice='';state.followup=false;state.status='running';state.step=0;state.screen='assistant';render();focusConversation();timer=setInterval(()=>{state.step++;if(state.step>=5)finish();else if(state.screen==='assistant')render();},1250);}
   function finish(){clearInterval(timer);state.step=5;state.status=state.technicalReady?'complete':'partial';if(state.status==='complete'&&state.topic!=='stable')state.planAvailable=true;render();}
@@ -135,6 +136,11 @@
   $('#navigation-toggle').addEventListener('click',()=>{const expanded=$('#navigation').classList.toggle('mobile-open');$('#navigation-toggle').setAttribute('aria-expanded',String(expanded));});
   $('#ready-example').addEventListener('click',showExample);
   $('#reset').addEventListener('click',()=>{reset();notify('Макет возвращён к исходному состоянию');});
+  let panelResizeFrame;
+  function schedulePanelFit(){if(panelResizeFrame)return;panelResizeFrame=requestAnimationFrame(()=>{panelResizeFrame=0;fitAssistantPanel();});}
+  window.addEventListener('scroll',schedulePanelFit,{passive:true});
+  window.addEventListener('resize',schedulePanelFit);
+  document.fonts.ready.then(schedulePanelFit);
   $('#period-icon').innerHTML=icon('calendar');
   render();
 })();
