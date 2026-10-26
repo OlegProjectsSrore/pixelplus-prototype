@@ -81,4 +81,10 @@
 .metric-chart-body .metric-ask{margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
 .metric-chart-body .chart-foot{margin-bottom:0}
 @media(max-width:700px){.section-toggle{padding:15px 14px;font-size:13px;gap:8px}.section-toggle>.tag{font-size:8px}.metric-chart-body{padding:16px 14px}}
+.welcome .example-prompt+.example-prompt{margin-top:10px}
+.priority-actions{padding-left:20px;margin:16px 0 20px;font-size:12px}
+.priority-actions li{padding-left:3px;margin-bottom:15px}
+.priority-actions li::marker{color:var(--green);font-weight:700}
+.priority-actions strong{display:block;margin-bottom:4px;font-size:12px}
+.priority-actions p{margin-bottom:0}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
